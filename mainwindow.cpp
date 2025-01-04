@@ -49,7 +49,6 @@ void MainWindow::on_actionOpen_triggered()
     //TODO: CHECK FOR REASONABLENESS ON PROPERTIES LIKE RESOLUTION AND FILE SIZE
     QImageReader openPicture{ picDialog.getOpenFileName(this, nullptr,
                                                        defaultDirectory, tr("*.jpeg, *.jpg, *.png")) };
-    //openPicture.setAutoTransform(true);
 
     QImage picture(openPicture.fileName());
 

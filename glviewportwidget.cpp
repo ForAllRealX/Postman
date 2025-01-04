@@ -1,13 +1,11 @@
 #include "glviewportwidget.h"
 #include "ui_mainwindow.h"
 
-// using namespace Ui;
-
 // Big thanks to Anton Gerdelan's article https://antongerdelan.net/opengl/hellotriangle.html
 // and learnopengl.com to help with the setup
 
-
-float quadVertices[] = {
+// static to keep these globals in this file onlys
+static constexpr float quadVertices[] = {
     // positions         // texture coords
     1.0f,  1.0f, 0.0f,   1.0f, 1.0f, // top right
     1.0f, -1.0f, 0.0f,   1.0f, 0.0f, // bottom right
@@ -15,7 +13,7 @@ float quadVertices[] = {
     -1.0f,  1.0f, 0.0f,   0.0f, 1.0f  // top left
 };
 
-unsigned int indices[] = {
+static constexpr unsigned int indices[] = {
     0, 1, 3,  // first triangle
     1, 2, 3   // second triangle
 };
@@ -57,9 +55,6 @@ void GLViewportWidget::paintGL()
     }
     else
     {
-        //glEnable(GL_TEXTURE_2D);
-
-        glClearColor(0.51f, 0.f, 0.81f, 1);
         glClear(GL_COLOR_BUFFER_BIT);
 
         glActiveTexture(GL_TEXTURE0);
@@ -85,7 +80,7 @@ void GLViewportWidget::setImage(QImage pic)
     makeCurrent();
 
     workingImage = pic.convertToFormat(QImage::Format_RGB888);
-    workingImage.mirror(true);
+    workingImage.mirror(true, true);
 
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);

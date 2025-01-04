@@ -10,6 +10,7 @@
 class GLViewportWidget : public QOpenGLWidget, protected QOpenGLFunctions_4_5_Core
 {
 public:
+    // TODO: Consider zero initializing things in ctor
     GLViewportWidget(QWidget* parent)
         : QOpenGLWidget(parent)
     {
@@ -45,7 +46,7 @@ private:
 
     // These two shaders help draw the quad being textured
     const char* vertexShaderSource =
-        "#version 460 core\n"
+        "#version 450 core\n"
 
         "layout (location = 0) in vec3 inVertPos;"
         "layout (location = 1) in vec2 inTexCoords;"
@@ -53,12 +54,12 @@ private:
         "out vec2 outTexCoords;"
         "void main()"
         "{"
-        "gl_Position = vec4(inVertPos, 1.0);"
-        "outTexCoords = inTexCoords;"
+            "gl_Position = vec4(inVertPos, 1.0);"
+            "outTexCoords = inTexCoords;"
         "}";
 
     const char* fragmentShaderSource =
-        "#version 460 core\n"
+        "#version 450 core\n"
 
         "in vec2 outTexCoords;"
         "out vec4 fragColor;"
@@ -67,7 +68,7 @@ private:
 
         "void main()"
         "{"
-        "  fragColor = texture2D(glImage, outTexCoords.xy);"
+            "fragColor = texture2D(glImage, outTexCoords.xy);"
         "}";
 };
 #endif // GLVIEWPORTWIDGET_H
