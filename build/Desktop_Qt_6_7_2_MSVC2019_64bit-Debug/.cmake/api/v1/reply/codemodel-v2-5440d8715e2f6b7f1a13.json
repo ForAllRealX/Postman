@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-68c36c872d7588f285f5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Postman",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Postman::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Postman-Debug-4ae2011cd3a37c7c599c.json",
+					"name" : "Postman",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Postman_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Postman_autogen-Debug-6003a833965f356ffc18.json",
+					"name" : "Postman_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Postman_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Postman_autogen_timestamp_deps-Debug-7cc006eb84f71c973042.json",
+					"name" : "Postman_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/tisgd/Documents/Postman/build/Desktop_Qt_6_7_2_MSVC2019_64bit-Debug",
+		"source" : "C:/Users/tisgd/Documents/Postman"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}
