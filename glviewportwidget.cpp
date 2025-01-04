@@ -43,7 +43,6 @@ void GLViewportWidget::initializeGL()
     // texture coord attribute
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
-
 }
 
 void GLViewportWidget::paintGL()
@@ -66,6 +65,7 @@ void GLViewportWidget::paintGL()
 
         glUseProgram(shaderProgram);
         glUniform1i(glGetUniformLocation(shaderProgram, "glImage"), 0);
+        glUniform1f(glGetUniformLocation(shaderProgram, "adjBrightnessFactor"), adjBrightnessFactor);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -80,7 +80,7 @@ void GLViewportWidget::setImage(QImage pic)
     makeCurrent();
 
     workingImage = pic.convertToFormat(QImage::Format_RGB888);
-    workingImage.mirror(true, true);
+    workingImage.mirror(true);
 
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -105,6 +105,14 @@ void GLViewportWidget::setImage(QImage pic)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 
+    doneCurrent();
+}
+
+void GLViewportWidget::callPaintWithValue(int newVal)
+{
+    adjBrightnessFactor = ((float)newVal / MaxSliderValue);
+    makeCurrent();
+    this->paintGL();
     doneCurrent();
 }
 

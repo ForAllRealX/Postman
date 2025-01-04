@@ -26,9 +26,10 @@ private slots:
     void on_actionOpen_triggered();
     void on_BrightnessButton_clicked();
     void on_ContrastButton_clicked();
+    void on_BrightnessSlider_valueChanged(int value);
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     GLViewportWidget viewport;
 
 };

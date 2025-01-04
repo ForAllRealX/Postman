@@ -576,6 +576,6 @@ C:/Users/tisgd/Documents/Postman/mainwindow.h
  mdp:C:/Users/tisgd/Documents/Postman/mainwindow.h
 C:/Users/tisgd/Documents/Postman/glviewportwidget.cpp
  uic:ui_mainwindow.h
+C:/Users/tisgd/Documents/Postman/main.cpp
 C:/Users/tisgd/Documents/Postman/mainwindow.cpp
  uic:./ui_mainwindow.h
-C:/Users/tisgd/Documents/Postman/main.cpp

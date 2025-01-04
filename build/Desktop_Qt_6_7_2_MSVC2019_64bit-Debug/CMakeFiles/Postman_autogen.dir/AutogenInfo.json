@@ -400,6 +400,12 @@
 	"HEADERS" : 
 	[
 		[
+			"C:/Users/tisgd/Documents/Postman/glviewportwidget.h",
+			"MU",
+			"EWIEGA46WW/moc_glviewportwidget.cpp",
+			null
+		],
+		[
 			"C:/Users/tisgd/Documents/Postman/mainwindow.h",
 			"MU",
 			"EWIEGA46WW/moc_mainwindow.cpp",
@@ -465,6 +471,7 @@
 	"SETTINGS_FILE" : "C:/Users/tisgd/Documents/Postman/build/Desktop_Qt_6_7_2_MSVC2019_64bit-Debug/CMakeFiles/Postman_autogen.dir/AutogenUsed.txt",
 	"SOURCES" : 
 	[
+		[ "C:/Users/tisgd/Documents/Postman/glviewportwidget.cpp", "MU", null ],
 		[ "C:/Users/tisgd/Documents/Postman/main.cpp", "MU", null ],
 		[ "C:/Users/tisgd/Documents/Postman/mainwindow.cpp", "MU", null ]
 	],

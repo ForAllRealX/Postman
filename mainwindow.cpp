@@ -41,7 +41,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionOpen_triggered()
 {
-    const QString& defaultDirectory = "C:\\Users\\Pictures\\TEST_Postman";
+    const QString& defaultDirectory = "C:\\Users\\tisgd\\Pictures\\Postman";
 
     QFileDialog picDialog;
     picDialog.setFileMode(QFileDialog::ExistingFile);
@@ -67,3 +67,8 @@ void MainWindow::on_ContrastButton_clicked()
     ui->InspectorPages->setCurrentIndex(2);
 }
 
+
+void MainWindow::on_BrightnessSlider_valueChanged(int val)
+{
+   viewport.callPaintWithValue(ui->BrightnessSlider->value());
+}
