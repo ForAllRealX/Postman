@@ -4,7 +4,7 @@
 // Big thanks to Anton Gerdelan's article https://antongerdelan.net/opengl/hellotriangle.html
 // and learnopengl.com to help with the setup
 
-// static to keep these globals in this file onlys
+// static to keep these globals in this file only
 static constexpr float quadVertices[] = {
     // positions         // texture coords
     1.0f,  1.0f, 0.0f,   1.0f, 1.0f, // top right
@@ -57,30 +57,30 @@ void GLViewportWidget::paintGL()
         glClear(GL_COLOR_BUFFER_BIT);
 
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, glImage);
+        glBindTexture(GL_TEXTURE_2D, glWorkingImage);
 
-        // glTexImage2D MUST be called before quad is drawn! That's why I got the black box
+        // glTexImage2D MUST be called before quad is drawn!
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, workingImage.width(), workingImage.height(),
                      0, GL_RGB, GL_UNSIGNED_BYTE, workingImage.bits());
 
         glUseProgram(shaderProgram);
-        glUniform1i(glGetUniformLocation(shaderProgram, "glImage"), 0);
-        glUniform1f(glGetUniformLocation(shaderProgram, "adjBrightnessFactor"), adjBrightnessFactor);
+        glUniform1i(glGetUniformLocation(shaderProgram, "glWorkingImage"), 0);
+        glUniform1f(glGetUniformLocation(shaderProgram, "adjBrightnessFactor"), uniforms.BrightnessFactor);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         // set back to 0
-        glBindTexture(GL_TEXTURE_2D, 0);
-        glUseProgram(0);
+        //glBindTexture(GL_TEXTURE_2D, 0);
+        //glUseProgram(0);
     }
 }
 
 void GLViewportWidget::setImage(QImage pic)
 {
-    makeCurrent();
-
     workingImage = pic.convertToFormat(QImage::Format_RGB888);
-    workingImage.mirror(true);
+    workingImage.mirror(true, true);
+
+    makeCurrent();
 
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
@@ -95,10 +95,10 @@ void GLViewportWidget::setImage(QImage pic)
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
 
-    glGenTextures(1, &glImage);
+    glGenTextures(1, &glWorkingImage);
     glActiveTexture(GL_TEXTURE0);
 
-    glBindTexture(GL_TEXTURE_2D, glImage);
+    glBindTexture(GL_TEXTURE_2D, glWorkingImage);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -108,11 +108,33 @@ void GLViewportWidget::setImage(QImage pic)
     doneCurrent();
 }
 
-void GLViewportWidget::callPaintWithValue(int newVal)
+void GLViewportWidget::callPaintWithValue(int newVal, EAdjustment adj)
 {
-    adjBrightnessFactor = ((float)newVal / MaxSliderValue);
+    switch (adj)
+    {
+        case Brightness:
+            uniforms.BrightnessFactor = ((float)newVal / MaxSliderValue);
+            break;
+        case Contrast:
+            uniforms.ContrastFactor = ((float)newVal / MaxSliderValue);
+            break;
+        case Hue:
+            uniforms.HueFactor = ((float)newVal / MaxSliderValue);
+            break;
+        case Saturation:
+            uniforms.SaturationFactor = ((float)newVal / MaxSliderValue);
+            break;
+        case BumpShadows:
+            uniforms.BumpShadowFactor = ((float)newVal / MaxSliderValue);
+            break;
+        case Vignette:
+            uniforms.VignetteFactor = ((float)newVal / MaxSliderValue);
+            break;
+    }        
+    
+    // After correct uniform is updated, paint with it
     makeCurrent();
-    this->paintGL();
+    paintGL();
     doneCurrent();
 }
 
@@ -122,7 +144,6 @@ void GLViewportWidget::resizeGL(int width, int height)
 {
     glViewport(0, 0, width, height);
 }
-
 
 #if 0
 GLViewportWidget::~GLViewportWidget()

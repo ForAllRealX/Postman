@@ -67,8 +67,7 @@ void MainWindow::on_ContrastButton_clicked()
     ui->InspectorPages->setCurrentIndex(2);
 }
 
-
 void MainWindow::on_BrightnessSlider_valueChanged(int val)
 {
-   viewport.callPaintWithValue(ui->BrightnessSlider->value());
+   viewport.callPaintWithValue(ui->BrightnessSlider->value(), viewport.Brightness);
 }

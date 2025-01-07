@@ -4,7 +4,6 @@
 #include "glviewportwidget.h"
 #include <QMainWindow>
 #include <QOpenGLFunctions>
-#include <QOpenGLBuffer>
 #include <QtOpenGLWidgets/QtOpenGLWidgets>
 #include <QtOpenGL>
 

@@ -13,7 +13,6 @@ public:
     // TODO: Probably zero initialize variables in ctor
     GLViewportWidget(QWidget* parent)
         : QOpenGLWidget(parent)
-        , adjBrightnessFactor{0}
     {
     }
 
@@ -21,22 +20,42 @@ public:
     {
     }
 
+    enum EAdjustment
+    {
+        Brightness = 0,
+        Contrast,
+        Hue,
+        Saturation,
+        BumpShadows,
+        Vignette
+    };
+
     void setImage(QImage pic);
-    void callPaintWithValue(int newVal);
+    void callPaintWithValue(int newVal, EAdjustment adj );
 
 protected:
     void initializeGL() override;
     void paintGL() override;
-    // TODO: Set resizing properties for viewport, and based on image size/UI positions
     void resizeGL(int width, int height) override;
 
 private:
-    // The image that is opened by the user.
-    // The image being edited.
+    // The image opened by the user, and being edited
     QImage workingImage;
 
     // The GL buffer for workingImage
-    GLuint glImage;
+    GLuint glWorkingImage;
+
+    // The *normalized* slider values that get passed into fragment shader uniforms
+    // Values between [-1,1]
+    struct SShaderUniforms
+    {
+        float BrightnessFactor = 0;
+        float ContrastFactor = 0;
+        float HueFactor = 0;
+        float SaturationFactor = 0;
+        float BumpShadowFactor = 0;
+        float VignetteFactor = 0;
+    } uniforms;
 
     GLuint vertexShader;
     GLuint fragmentShader;
@@ -45,12 +64,9 @@ private:
     unsigned int vbo;
     unsigned int vao;
     unsigned int ebo;
-
-    int MaxSliderValue = 50;
-    float adjBrightnessFactor;
     
-
     GLenum errorCode = 0; // errorCode = glGetError();
+    const int MaxSliderValue = 50;
 
     const char* vertexShaderSource =
         "#version 450 core\n"
