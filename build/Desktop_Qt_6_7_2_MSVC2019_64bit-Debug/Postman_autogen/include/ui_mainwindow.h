@@ -417,7 +417,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "TEST_Postman: A Post Processing Playground", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "Postman: A Post Processing Playground", nullptr));
         actionOpen->setText(QCoreApplication::translate("MainWindow", "Open Image", nullptr));
 #if QT_CONFIG(tooltip)
         actionOpen->setToolTip(QCoreApplication::translate("MainWindow", "<html><head/><body><p>Open the image to edit</p></body></html>", nullptr));

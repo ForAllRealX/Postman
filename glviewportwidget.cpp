@@ -66,6 +66,7 @@ void GLViewportWidget::paintGL()
         glUseProgram(shaderProgram);
         glUniform1i(glGetUniformLocation(shaderProgram, "glWorkingImage"), 0);
         glUniform1f(glGetUniformLocation(shaderProgram, "adjBrightnessFactor"), uniforms.BrightnessFactor);
+        glUniform1f(glGetUniformLocation(shaderProgram, "adjContrastFactor"), uniforms.ContrastFactor);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -78,7 +79,7 @@ void GLViewportWidget::paintGL()
 void GLViewportWidget::setImage(QImage pic)
 {
     workingImage = pic.convertToFormat(QImage::Format_RGB888);
-    workingImage.mirror(true, true);
+    workingImage.mirror(false, true);
 
     makeCurrent();
 

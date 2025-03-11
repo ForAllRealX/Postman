@@ -31,7 +31,7 @@ public:
     };
 
     void setImage(QImage pic);
-    void callPaintWithValue(int newVal, EAdjustment adj );
+    void callPaintWithValue(int newVal, EAdjustment adj);
 
 protected:
     void initializeGL() override;
@@ -89,10 +89,11 @@ private:
 
         "uniform sampler2D glImage;"
         "uniform float adjBrightnessFactor;"
+        "uniform float adjContrastFactor;"
 
         "void main()"
         "{"
-            "fragColor = texture2D(glImage, outTexCoords.xy) + (-1 * adjBrightnessFactor);"
+            "fragColor = (-adjContrastFactor * 2.3 + 1) * texture2D(glImage, outTexCoords.xy) + (-adjBrightnessFactor);"
         "}";
 };
 #endif // GLVIEWPORTWIDGET_H

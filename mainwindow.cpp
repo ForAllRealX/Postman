@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , viewport(this)
 {
     ui->setupUi(this);
-    ui->InspectorPages->setCurrentIndex(0);
+    ui->InspectorPages->setCurrentIndex(BlankPage);
 
     // Apply custom CSS styles here, since the styleSheet editor in
     // Qt Designer isn't respecting many wanted adjustments.
@@ -41,7 +41,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionOpen_triggered()
 {
-    const QString& defaultDirectory = "C:\\Users\\tisgd\\Pictures\\Postman";
+#ifdef _WIN32
+    char* userProfile = getenv("USERPROFILE");
+    const QString defaultDirectory = userProfile + QString("\\Pictures");
+#else
+    // throw error "OS Not Supported Yet. Stay tuned!"
+#endif
 
     QFileDialog picDialog;
     picDialog.setFileMode(QFileDialog::ExistingFile);
@@ -59,15 +64,20 @@ void MainWindow::on_actionOpen_triggered()
 
 void MainWindow::on_BrightnessButton_clicked()
 {
-    ui->InspectorPages->setCurrentIndex(1);
+    ui->InspectorPages->setCurrentIndex(Brightness);
 }
 
 void MainWindow::on_ContrastButton_clicked()
 {
-    ui->InspectorPages->setCurrentIndex(2);
+    ui->InspectorPages->setCurrentIndex(Contrast);
 }
 
 void MainWindow::on_BrightnessSlider_valueChanged(int val)
 {
-   viewport.callPaintWithValue(ui->BrightnessSlider->value(), viewport.Brightness);
+   viewport.callPaintWithValue(ui->BrightnessSlider->value(), GLViewportWidget::Brightness);
 }
+void MainWindow::on_ContrastSlider_valueChanged(int value)
+{
+    viewport.callPaintWithValue(ui->ContrastSlider->value(), GLViewportWidget::Contrast);
+}
+
